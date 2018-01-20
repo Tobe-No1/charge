@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>天天牌吧</title>
+<link href="css/Reset.css" rel="stylesheet" type="text/css">
+<link href="css/h5_DEMO.css"  rel="stylesheet" type="text/css">
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/mtjsencrypt.min.js"></script>
+<script type="text/javascript">
+
+$(function(){
+	var timestamp=new Date().getTime();
+	$("#mchntOrderNo").val("ceshi"+timestamp);
+})
+
+function submit(){
+	var version='api_NoEncrypt';//传此值时，平台返回明文参数，否则返回密文参数
+	var subject=$("#subject").val();
+	var mchntOrderNo=$("#mchntOrderNo").val();
+	var amount=$("#amount").val();
+	var appid=$("#appid").val();
+	var key=$("#key").val();
+	var body=$("#body").val();
+	var clientIp=$("#clientIp").val();
+	var notifyUrl=$("#notifyUrl").val();
+	var returnUrl=$("#returnUrl").val();
+	var signature='';
+	var jsonStr='{';
+	//请求参数都按照名称字符升序排列
+	if(amount!=''&&$.trim(amount).length>0){
+		jsonStr+='"amount":"'+amount+'",';
+		signature+='amount='+amount+'&'
+	}
+	if(appid!=''&&$.trim(appid).length>0){
+		jsonStr+='"appid":"'+appid+'",';
+		signature+='appid='+appid+'&'
+	}
+	if(body!=''&&$.trim(body).length>0){
+		jsonStr+='"body":"'+body+'",';
+		signature+='body='+body+'&'
+	}
+	if(clientIp!=''&&$.trim(clientIp).length>0){
+		jsonStr+='"clientIp":"'+clientIp+'",';
+		signature+='clientIp='+clientIp+'&'
+	}
+	if(mchntOrderNo!=''&&$.trim(mchntOrderNo).length>0){
+		jsonStr+='"mchntOrderNo":"'+mchntOrderNo+'",';
+		signature+='mchntOrderNo='+mchntOrderNo+'&'
+	}
+	
+	if(notifyUrl!=''&&$.trim(notifyUrl).length>0){
+		jsonStr+='"notifyUrl":"'+notifyUrl+'",';
+		signature+='notifyUrl='+notifyUrl+'&'
+	}
+	if(returnUrl!=''&&$.trim(returnUrl).length>0){
+		jsonStr+='"returnUrl":"'+returnUrl+'",';
+		signature+='returnUrl='+returnUrl+'&'
+	}
+	if(subject!=''&&$.trim(subject).length>0){
+		jsonStr+='"subject":"'+subject+'",';
+		signature+='subject='+subject+'&'
+	}
+	if(version!=''&&$.trim(version).length>0){
+		jsonStr+='"version":"'+version+'",';
+		signature+='version='+version+'&'
+	}
+	if(key!=''&&$.trim(key).length>0){
+		signature+='key='+key
+	}
+	if(signature!=''&&$.trim(signature).length>0){
+		jsonStr+='"signature":"'+signature+'",';
+	}
+	
+	jsonStr=jsonStr.substring(0,jsonStr.length-1);
+	jsonStr+='}';
+	var result =mtEncryptAndMD5(jsonStr);
+	$("#orderInfo").val(result);
+	document.getElementById('form').submit();
+}
+</script>
+</head>
+
+<body>
+<!--订单详情-->
+<div class="order-details08">
+    <h2>订单详情</h2>
+    <ul>
+        <li>
+            <span>商品名称：</span>
+            <strong><input id="subject" type="text" value="商品名称"></strong>
+            <strong style="color:red">*必填</strong>
+        </li>
+        <li>
+            <span>订单编号：</span>
+            <strong><input id="mchntOrderNo" type="text" value=""></strong>
+             <strong style="color:red">*必填</strong>
+        </li>
+        <li>
+            <span>订单金额(分)：</span>
+            <strong><input id="amount" type="text" value="1"></strong>
+          
+             <strong style="color:red">*必填</strong>
+        </li>
+        <li>
+            <span>应用ID：</span>
+            <strong><input id="appid" type="text" value="0000000022"></strong>
+             <strong style="color:red">*必填</strong>
+        </li>
+        <li>
+            <span>应用密钥：</span>
+            <strong><input id="key" type="text" value="e7d4c31780d1379c6af38f82e455967c"></strong>
+             <strong style="color:red">*必填</strong>
+        </li>
+        <li>
+            <span>商品描述：</span>
+            <strong><input id="body" type="text" value="body test"></strong>
+            <strong style="color:red">*必填</strong>
+            
+        </li>
+        <li>
+            <span>请求ip地址：</span>
+            <strong><input id="clientIp" type="text" value="192.168.1.1"></strong>
+            <strong style="color:red">*必填</strong>
+        </li>
+        <li>
+            <span>异步回调url：</span>
+            <strong><input id="notifyUrl" type="text" value="http://www.palmf.cn"></strong>
+            <strong style="color:red">*必填</strong>
+        </li>
+         <li>
+            <span>同步跳转url：</span>
+            <strong><input id="returnUrl" type="text" value="http://www.palmf.cn"></strong>
+            <strong style="color:red">*必填</strong>
+        </li>
+    </ul>
+</div>
+<form id="form" action="http://trans.palmf.cn/sdk/api/v1.0/cli/order_h5/0" method="post">
+		<input type="hidden" id="orderInfo" name="orderInfo" value="">
+	</form>
+<!--立即购买-->
+<a href="javascript:submit();" class="immediate_pay">立即购买</a>
+</body>
+</html>

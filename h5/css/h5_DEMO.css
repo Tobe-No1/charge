@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+/*PC收银台页*/
+/*头部*/
+.mtSec_header08{ height:50px; padding-top:8px; box-shadow:none; border-bottom:1px solid #cbcbcb; position:static; background:#f2f2f2;}
+.sdk_logo{ float:left;}
+.CpMessage{ margin-top:60px;  background:#fafafa; padding:16px 0 40px; border-bottom:1px solid #cbcbcb; border-top:1px solid #cbcbcb;}
+.CpMessage-bo{border-bottom:1px solid #cbcbcb; overflow:hidden; margin-bottom:25px;}
+.CpMessage ul li{ margin-bottom:18px; float:left; width:25%;}
+.CpMessage ul li h2{ font-size:16px; color:#323232;}
+.CpMessage ul li p{ font-size:16px; color:#323232;}
+.CpMessage .proName{ margin-bottom:0; width:46%;}
+
+/*订单详情*/
+.order-details08{ width:70%;  height:480px; padding-top:40px; border:1px solid #cbcbcb; background-color:#fafafa; margin:50px auto;}
+.order-details08 h2{ height:100px; text-align:center; font-size:36px; color:#323232;}
+.order-details08 ul{ width:500px;  margin:0 auto;}
+.order-details08 ul li{ font-size:20px;  color:#323232; height:40px;}
+.order-details08 ul li span{ font-size:18px;  color:#323232; float:left;width:130px;}
+.order-details08 ul li strong{ font-size:14px;  color:#323232; float:left; font-weight:normal;}
+.order-details08 ul li strong input{ font-size:15px; border:1px solid #cbcbcb;color:#323232; float:left;width:300px;height:30px;line-height30px;}
+
+/*立即购买按钮*/
+.immediate_pay{ display:block;
+ width:138px;
+  height:42px;
+  line-height:42px;
+   background:#0070c9;
+    border-radius:30px;
+	 font-size:18px;
+	  color:#fff;
+	  text-align:center;
+	  margin:50px auto;
+	  cursor:pointer;
+	  }
+@media screen and (max-width:768px){
+	.order-details08{ width:85%; padding-left:15px;}
+	.order-details08 ul{width:auto;}
+	.order-details08 ul li{ height:auto;margin-bottom:25px;}
+	.order-details08 ul li span{float:none;display:block; font-weight:bold;}	
+	.order-details08 ul li strong{ float:none; display:block;}
+	.order-details08 ul li strong input{ width:80%; border-color:#323232;}
+	.order-details08{ height:auto; padding-bottom:30px;}
+}	  
